@@ -1,4 +1,4 @@
-const url = "https://" + process.env.CYCLIC_APP_DOMAIN + ".apps.cyclic.sh"
+const url = "https://" + process.env.CYCLIC_APP_DOMAIN + ".cyclic.app";
 const port = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
