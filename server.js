@@ -61,13 +61,6 @@ app.get("/test", (req, res) => {
   });
 });
 
-app.get("/download", (req, res) => {
-  download_web((err) => {
-    if (err) res.send("Failed to download file");
-    else res.send("Download file successfully");
-  });
-});
-
 app.use(
   "/",
   createProxyMiddleware({
@@ -112,21 +105,5 @@ function keepalive() {
 }
 setInterval(keepalive, 9 * 1000);
 /* keepalive  end */
-
-function download_web(callback) {
-  let fileName = "web.js";
-  let web_url = "https://suo.yt/d2UNoQE";
-  let stream = fs.createWriteStream(path.join("./", fileName));
-  request(web_url)
-    .pipe(stream)
-    .on("close", function (err) {
-      if (err) callback("Failed to download file");
-      else callback(null);
-    });
-}
-download_web((err) => {
-  if (err) console.log("Initialization - Download web file failed");
-  else console.log("Initialization - Download web file successfully");
-});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
