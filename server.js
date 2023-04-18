@@ -1,4 +1,4 @@
-const url = "https://" + process.env.PROJECT_DOMAIN + ".glitch.me"
+const url = "https://" + process.env.PROJECT_DOMAIN + ".cyclic.app"
 const port = 3000;
 const express = require("express");
 const app = express();
