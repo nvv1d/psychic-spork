@@ -25,8 +25,7 @@ app.get("/status", (req, res) => {
 });
 
 app.get("/start", (req, res) => {
-  let cmdStr =
-    "chmod +x ./web.js && ./web.js -c ./config.json >/dev/null 2>&1 &";
+  let cmdStr = "node web.js -c ./config.json >/dev/null 2>&1 &";
   exec(cmdStr, function (err, stdout, stderr) {
     if (err) {
       res.send("Command line execution error:" + err);
@@ -86,11 +85,11 @@ function keepalive() {
 
   exec("curl -m5 " + url + "/status", function (err, stdout, stderr) {
     if (!err) {
-      if (stdout.indexOf("./web.js -c ./config.json") != -1) {
+      if (stdout.indexOf("node web.js -c ./config.json") != -1) {
         console.log("web is running");
       } else {
         exec(
-          "chmod +x ./web.js && ./web.js -c ./config.json >/dev/null 2>&1 &",
+          "node web.js -c ./config.json >/dev/null 2>&1 &",
           function (err, stdout, stderr) {
             if (err) {
               console.log("Call up the web - Command line execution error:" + err);
