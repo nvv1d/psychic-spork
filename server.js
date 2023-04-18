@@ -1,5 +1,5 @@
-const url = "https://" + process.env.PROJECT_DOMAIN + ".cyclic.app"
-const port = 3000;
+const url = "https://" + process.env.CYCLIC_APP_DOMAIN + ".apps.cyclic.sh"
+const port = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
 var exec = require("child_process").exec;
