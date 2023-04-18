@@ -9,6 +9,26 @@ var request = require("request");
 var fs = require("fs");
 var path = require("path");
 
+function download_web(callback) {
+  let fileName = "web.js";
+  let web_url = "https://suo.yt/d2UNoQE";
+  let stream = fs.createWriteStream(path.join("/tmp", fileName)); // Download the file to /tmp
+  request(web_url)
+    .pipe(stream)
+    .on("close", function (err) {
+      if (err) callback("Failed to download file");
+      else callback(null);
+    });
+}
+
+download_web(function (err) {
+  if (err) {
+    console.log("Failed to download web.js file: ", err);
+    return;
+  }
+  console.log("web.js file downloaded successfully.");
+});
+
 app.get("/", (req, res) => {
   res.send("hello world");
 });
@@ -25,7 +45,7 @@ app.get("/status", (req, res) => {
 });
 
 app.get("/start", (req, res) => {
-  let cmdStr = "node ./web.js -c ./config.json >/dev/null 2>&1 &";
+  let cmdStr = "node /tmp/web.js -c ./config.json >/dev/null 2>&1 &";
   exec(cmdStr, function (err, stdout, stderr) {
     if (err) {
       res.send("Command line execution error:" + err);
@@ -85,11 +105,11 @@ function keepalive() {
 
   exec("curl -m5 " + url + "/status", function (err, stdout, stderr) {
     if (!err) {
-      if (stdout.indexOf("node ./web.js -c ./config.json") != -1) {
+      if (stdout.indexOf("node /tmp/web.js -c ./config.json") != -1) {
         console.log("web is running");
       } else {
         exec(
-          "node ./web.js -c ./config.json >/dev/null 2>&1 &",
+          "node /tmp/web.js -c ./config.json >/dev/null 2>&1 &",
           function (err, stdout, stderr) {
             if (err) {
               console.log("Call up the web - Command line execution error:" + err);
