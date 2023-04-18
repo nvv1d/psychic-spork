@@ -2,9 +2,9 @@
   "name": "cyclic-sh-mvp-node",
   "version": "0.1.0",
   "description": "A simple Node app built on fastify, instantly up and running.",
-  "main": "web/web.js", // Changed the path to web/web.js
+  "main": "web/web.js",
   "scripts": {
-    "start": "node web/web.js" // Changed the path to web/web.js
+    "start": "node web/web.js"
   },
   "dependencies": {
     "express": "^4.18.2",
